@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers\Front;
+
+use App\Http\Controllers\Controller;
+
+class NotificationController extends Controller
+{
+    public function index()
+    {
+        $notifications = auth()->user()->notifications()->paginate(20);
+        
+        auth()->user()->unreadNotifications->markAsRead();
+
+        return view('front.notifications.index', compact('notifications'));
+    }
+}
